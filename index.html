@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nexus Digital — extended device warranties with Nexwareeny and EMI security with Nexlock. Securing connectivity, ensuring trust.">
+    <title>NEXUS | Warranties, EMI Security & IT Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ===== WELCOME INTRO ANIMATION ===== -->
+    <div id="welcomeOverlay" class="welcome-overlay">
+        <canvas id="particleCanvas" class="welcome-particles"></canvas>
+        
+        <!-- Orbital rings -->
+        <div class="orbital-system" id="orbitalSystem">
+            <div class="orbital-ring orbital-ring-1"></div>
+            <div class="orbital-ring orbital-ring-2"></div>
+            <div class="orbital-ring orbital-ring-3"></div>
+        </div>
+
+        <!-- Light burst -->
+        <div class="light-burst" id="lightBurst"></div>
+
+        <!-- Horizontal reveal lines -->
+        <div class="h-line h-line-left" id="hLineLeft"></div>
+        <div class="h-line h-line-right" id="hLineRight"></div>
+
+        <div class="welcome-content" id="welcomeContent">
+            <div class="welcome-text-row" id="welcomeRow">
+                <span class="welcome-letter" style="--i:0">W</span><span class="welcome-letter" style="--i:1">e</span><span class="welcome-letter" style="--i:2">l</span><span class="welcome-letter" style="--i:3">c</span><span class="welcome-letter" style="--i:4">o</span><span class="welcome-letter" style="--i:5">m</span><span class="welcome-letter" style="--i:6">e</span><span class="welcome-letter welcome-spacer" style="--i:7">&nbsp;</span><span class="welcome-letter wl-to" style="--i:8">t</span><span class="welcome-letter wl-to" style="--i:9">o</span>
+            </div>
+            <div class="welcome-logo-wrap" id="logoWrap">
+                <div class="logo-ring" id="logoRing"></div>
+                <img src="logo.png" alt="NEXUS" class="welcome-logo" id="welcomeLogo">
+            </div>
+            <div class="welcome-tagline" id="welcomeTagline">
+                <span class="tag-bar"></span>
+                <span class="tag-text">Securing connectivity, ensuring trust.</span>
+                <span class="tag-bar"></span>
+            </div>
+        </div>
+
+        <div class="welcome-vignette"></div>
+        <div class="welcome-scanline"></div>
+        <div class="welcome-grid-bg"></div>
+    </div>
+
+    <style>
+        .welcome-overlay {
+            position: fixed; inset: 0; z-index: 99999;
+            background: #050816;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .welcome-overlay.exit {
+            animation: camOut 1.2s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        .welcome-overlay.hidden { display: none; }
+        @keyframes camOut {
+            0%   { opacity:1; transform:scale(1); filter:brightness(1); }
+            40%  { filter:brightness(3); }
+            100% { opacity:0; transform:scale(1.6); filter:brightness(0); }
+        }
+
+        .welcome-grid-bg {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,180,216,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,180,216,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            z-index: 0;
+        }
+        .welcome-vignette {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 25%, #050816 75%);
+            pointer-events: none; z-index: 1;
+        }
+        .welcome-particles {
+            position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2;
+        }
+        .welcome-scanline {
+            position: absolute; top: -2px; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent 20%, rgba(0,224,150,.6) 50%, transparent 80%);
+            animation: scanMove 3s ease-in-out infinite; opacity: .3; z-index: 3;
+        }
+        @keyframes scanMove { 0%{top:-2px} 100%{top:100%} }
+
+        /* Orbital rings */
+        .orbital-system {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 500px; height: 500px;
+            opacity: 0; transition: opacity 1.2s ease; z-index: 3;
+        }
+        .orbital-system.show { opacity: 1; }
+        .orbital-ring {
+            position: absolute; inset: 0; border-radius: 50%;
+            border: 1px solid transparent;
+        }
+        .orbital-ring-1 { border-color: rgba(0,224,150,.2); animation: spin 8s linear infinite; inset: 20px; }
+        .orbital-ring-2 { border-color: rgba(0,180,216,.15); border-style: dashed; animation: spin 12s linear infinite reverse; inset: 50px; }
+        .orbital-ring-3 { border-color: rgba(124,92,252,.15); border-width: 2px; border-style: dotted; animation: spin 15s linear infinite; inset: -10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Light burst */
+        .light-burst {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%) scale(0);
+            width: 700px; height: 700px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,180,216,.35) 0%, rgba(0,224,150,.12) 30%, transparent 65%);
+            z-index: 3; opacity: 0;
+            transition: transform 1.5s cubic-bezier(.16,1,.3,1), opacity 1s ease;
+        }
+        .light-burst.show { transform: translate(-50%,-50%) scale(2); opacity: 1; }
+
+        /* H-lines */
+        .h-line {
+            position: absolute; top: 50%; height: 1px; width: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,180,216,.5), transparent);
+            z-index: 4; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+        }
+        .h-line-left { right: 50%; margin-right: 260px; }
+        .h-line-right { left: 50%; margin-left: 260px; }
+        .h-line.show { width: 35vw; }
+
+        /* Main content */
+        .welcome-content {
+            position: relative; z-index: 10;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 1rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .welcome-content.show-all {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Letters */
+        .welcome-text-row {
+            display: flex; justify-content: center; gap: 6px;
+        }
+        .welcome-letter {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 4.5vw, 3rem);
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            display: inline-block;
+            text-shadow: 0 0 20px rgba(0,180,216,.3);
+        }
+        .wl-to {
+            color: rgba(255,255,255,.55);
+            font-weight: 400;
+        }
+        .welcome-spacer { width: .4em; }
+
+        /* Logo wrap */
+        .welcome-logo-wrap {
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            margin: 1rem 0;
+        }
+        .logo-ring {
+            position: absolute;
+            width: clamp(260px, 55vw, 540px);
+            height: clamp(260px, 55vw, 540px);
+            border-radius: 50%;
+            border: 2px solid rgba(0,180,216,.2);
+            box-shadow: 0 0 30px rgba(0,180,216,.1);
+            animation: ringPulse 4s ease-in-out infinite;
+        }
+        @keyframes ringPulse {
+            0%,100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; border-color: rgba(0,180,216,.4); box-shadow: 0 0 50px rgba(0,180,216,.25); }
+        }
+
+        /* Logo image */
+        .welcome-logo {
+            max-width: clamp(220px, 50vw, 460px);
+            height: auto; display: block;
+            filter: drop-shadow(0 0 30px rgba(0,180,216,.3));
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Tagline */
+        .welcome-tagline {
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .tag-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: clamp(.75rem, 1.6vw, .95rem);
+            color: rgba(255,255,255,.55);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+        .tag-bar {
+            display: block; width: 40px; height: 1px;
+            background: rgba(0,180,216,.4);
+        }
+
+        @media (max-width: 600px) {
+            .orbital-system { width: 280px; height: 280px; }
+            .h-line { display: none; }
+            .tag-bar { width: 20px; }
+        }
+    </style>
+
+    <script>
+    (function() {
+        const overlay = document.getElementById('welcomeOverlay');
+
+        if (sessionStorage.getItem('nexus_intro_played')) {
+            overlay.classList.add('hidden');
+            return;
+        }
+        sessionStorage.setItem('nexus_intro_played', 'true');
+
+        // Prevent scrolling during intro
+        document.body.style.overflow = 'hidden';
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = () => canvas.width, H = () => canvas.height;
+        function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+        resize(); addEventListener('resize', resize);
+
+        // Particles
+        const pts = [], shoots = [];
+        const C = ['#00e096','#00b4d8','#7c5cfc','#00d4aa','#5b8def'];
+        for (let i = 0; i < 70; i++) pts.push({
+            x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+            vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+            r: Math.random()*1.5+.4, a: Math.random()*.4+.1,
+            c: C[Math.floor(Math.random()*C.length)], p: Math.random()*6.28
+        });
+
+        let running = true, fr = 0;
+        function draw() {
+            if (!running) return;
+            fr++;
+            ctx.clearRect(0, 0, W(), H());
+
+            const cx = W()/2, cy = H()/2;
+
+            // Connections
+            for (let i = 0; i < pts.length; i++) {
+                for (let j = i+1; j < pts.length; j++) {
+                    const dx = pts[i].x-pts[j].x, dy = pts[i].y-pts[j].y;
+                    const d2 = dx*dx+dy*dy;
+                    if (d2 < 12000) {
+                        const d = Math.sqrt(d2);
+                        ctx.beginPath();
+                        ctx.moveTo(pts[i].x, pts[i].y);
+                        ctx.lineTo(pts[j].x, pts[j].y);
+                        ctx.strokeStyle = `rgba(0,180,216,${.05*(1-d/110)})`;
+                        ctx.lineWidth = .4; ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw particles
+            pts.forEach(p => {
+                p.x += p.vx; p.y += p.vy; p.p += .02;
+                if (p.x < 0||p.x > W()) p.vx *= -1;
+                if (p.y < 0||p.y > H()) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                ctx.fillStyle = p.c;
+                ctx.globalAlpha = p.a*(.7+Math.sin(p.p)*.3);
+                ctx.fill(); ctx.globalAlpha = 1;
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+
+        // --- Clean Cinematic Sequence ---
+        const welcomeContent = document.getElementById('welcomeContent');
+        const orb = document.getElementById('orbitalSystem');
+        const burst = document.getElementById('lightBurst');
+        const hL = document.getElementById('hLineLeft');
+        const hR = document.getElementById('hLineRight');
+
+        // T+200ms  — Show background orbital elements & lines
+        setTimeout(() => {
+            if(orb) orb.classList.add('show');
+            if(hL) hL.classList.add('show');
+            if(hR) hR.classList.add('show');
+            if(burst) burst.classList.add('show');
+        }, 200);
+
+        // T+600ms  — Fade and scale in the main branding content cleanly
+        setTimeout(() => {
+            if(welcomeContent) welcomeContent.classList.add('show-all');
+        }, 600);
+
+        // T+3.8s   — Exit cleanly
+        setTimeout(() => {
+            overlay.classList.add('exit');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                running = false;
+                document.body.style.overflow = ''; // Restore scroll
+            }, 1000);
+        }, 3800);
+    })();
+    </script>
+    <!-- ===== END WELCOME INTRO ===== -->
+
+    <nav class="navbar">
+        <a href="index.html"><img src="logo.png" alt="NEXUS" class="logo-img"></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="nexwarranty.html">Nex Warrenty</a></li>
+            <li><a href="nexlock.html">Security</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">NX &middot; CERTIFIED PROTECTION</p>
+            <h1>Protection that <span class="gradient-text">holds up.</span></h1>
+            <p class="lede">Extended warranties and EMI security built for how people actually own devices — from the first breakdown to the last unpaid instalment.</p>
+            <div class="hero-cta">
+                <a href="#products" class="cta-button">Explore our products</a>
+                <a href="nexwareeny.html" class="cta-button secondary">See coverage plans</a>
+            </div>
+            <div class="stat-strip">
+                <div class="stat"><span class="num" data-count-to="20" data-prefix="₹" data-suffix="L">₹0L</span><span class="label">Max device value covered</span></div>
+                <div class="stat"><span class="num" data-count-to="0" data-suffix="%">0%</span><span class="label">Depreciation on approved claims</span></div>
+                <div class="stat"><span class="num" data-count-to="10" data-suffix="+ yrs">0+ yrs</span><span class="label">Leadership industry experience</span></div>
+            </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+            <svg class="seal-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1" />
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2" />
+                        <feMerge>
+                            <feMergeNode in="blur2" />
+                            <feMergeNode in="blur1" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <linearGradient id="hex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--signal)" />
+                        <stop offset="100%" stop-color="var(--indigo)" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Rotating data rings -->
+                <g class="seal-ring">
+                    <circle cx="200" cy="200" r="186" fill="none" stroke="var(--signal)" stroke-width="1" stroke-dasharray="4 8" opacity="0.4" />
+                    <circle cx="200" cy="200" r="172" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-dasharray="30 20 5 20" opacity="0.6" />
+                </g>
+
+                <!-- Nested Hexagons -->
+                <polygon class="seal-hex" points="200,50 336,125 336,275 200,350 64,275 64,125" fill="none" stroke="url(#hex-grad)" stroke-width="2" filter="url(#neon-glow)" />
+                <polygon points="200,70 318,137 318,263 200,330 82,263 82,137" fill="none" stroke="var(--signal)" stroke-width="1" opacity="0.3" stroke-dasharray="10 5" />
+
+                <!-- Connecting lines -->
+                <g stroke="var(--signal)" stroke-width="2" filter="url(#neon-glow)" opacity="0.8">
+                    <line x1="200" y1="50" x2="200" y2="14" />
+                    <line x1="336" y1="125" x2="368" y2="107" />
+                    <line x1="336" y1="275" x2="368" y2="293" />
+                    <line x1="200" y1="350" x2="200" y2="386" />
+                    <line x1="64" y1="275" x2="32" y2="293" />
+                    <line x1="64" y1="125" x2="32" y2="107" />
+                </g>
+
+                <!-- Glowing Nodes -->
+                <g fill="var(--signal)" filter="url(#neon-glow)">
+                    <circle class="seal-node" cx="200" cy="14" r="6" />
+                    <circle class="seal-node" cx="368" cy="107" r="6" />
+                    <circle class="seal-node" cx="368" cy="293" r="6" />
+                    <circle class="seal-node" cx="200" cy="386" r="6" />
+                    <circle class="seal-node" cx="32" cy="293" r="6" />
+                    <circle class="seal-node" cx="32" cy="107" r="6" />
+                </g>
+
+                <!-- High-tech Lock -->
+                <g filter="url(#neon-glow)">
+                    <!-- Lock body outline -->
+                    <rect x="156" y="196" width="88" height="64" rx="8" fill="none" stroke="var(--navy)" stroke-width="4" />
+                    <!-- Inner grid/shading for lock -->
+                    <rect x="160" y="200" width="80" height="56" rx="6" fill="var(--navy)" opacity="0.9" />
+                    
+                    <!-- Shackle (Top part of lock) -->
+                    <path d="M174 196 v-24 a26 26 0 0 1 52 0 v24" fill="none" stroke="var(--signal)" stroke-width="6" stroke-linecap="round" />
+                    
+                    <!-- Keyhole with pulse effect -->
+                    <circle cx="200" cy="222" r="7" fill="var(--signal)" class="seal-node" style="animation-delay: 0s;" />
+                    <rect x="196" y="222" width="8" height="18" rx="3" fill="var(--signal)" class="seal-node" style="animation-delay: 0.2s;" />
+                </g>
+                
+                <!-- Scanning line effect (simulating a scanner moving down the lock) -->
+                <line x1="140" y1="196" x2="260" y2="196" stroke="var(--signal)" stroke-width="2" filter="url(#neon-glow)">
+                    <animate attributeName="y1" values="196;260;196" dur="3s" repeatCount="indefinite" />
+                    <animate attributeName="y2" values="196;260;196" dur="3s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" />
+                </line>
+            </svg>
+        </div>
+
+        <div class="hero-background">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+    </header>
+
+    <section id="products" class="section products-section">
+        <div class="container">
+            <div class="section-head">
+                <p class="eyebrow">01 &middot; PRODUCTS</p>
+                <h2 class="section-title fade-in">Two products. One promise.</h2>
+                <p class="section-sub fade-in">Whatever the device, whatever the risk, Nexus certifies it — either against wear or against missed payments.</p>
+            </div>
+            <div class="products-grid">
+                <div class="cert-card fade-in">
+                    <div class="cert-card__top">
+                        <div class="cert-icon">🛡️</div>
+                        <h3>Nexwareeny</h3>
+                        <p>Comprehensive extended warranty coverage for home and electronic appliances, giving you complete peace of mind — 100% cost of parts and labor, zero depreciation.</p>
+                    </div>
+                    <div class="cert-perforation"></div>
+                    <div class="cert-card__bottom">
+                        <span class="cert-code">NX&ndash;WRT&ndash;01</span>
+                        <a href="nexwareeny.html" class="learn-more">Learn more &rarr;</a>
+                    </div>
+                </div>
+                <div class="cert-card fade-in delay-1">
+                    <div class="cert-card__top">
+                        <div class="cert-icon">📱</div>
+                        <h3>Nexlock</h3>
+                        <p>An advanced EMI security solution that automatically locks mobile devices if customers fall behind on payments, ensuring compliance without repossession.</p>
+                    </div>
+                    <div class="cert-perforation"></div>
+                    <div class="cert-card__bottom">
+                        <span class="cert-code">NX&ndash;LCK&ndash;02</span>
+                        <a href="nexlock.html" class="learn-more">Learn more &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="photo-band" style="background-image: url('https://images.unsplash.com/photo-1768051579338-3dc694863efc?fm=jpg&amp;q=80&amp;w=1800&amp;auto=format&amp;fit=crop');">
+        <span class="photo-band__stamp">NX &middot; ON THE GROUND</span>
+        <div class="photo-band__content">
+            <p class="eyebrow">CERTIFIED, NOT OUTSOURCED</p>
+            <h2>Real technicians. Authorized parts. No shortcuts.</h2>
+            <p>Every claim routes to a brand-authorized service center — the same repair your manufacturer would perform, at zero cost to you.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="photo-grid fade-in">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?fm=jpg&amp;q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Refrigerator covered under Nexwareeny appliance warranty" loading="lazy">
+                    <div class="photo-card__label">
+                        <span class="cert-code">NX&ndash;WRT&ndash;01</span>
+                        <strong>Large appliances</strong>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1632923565835-6582b54f2105?fm=jpg&amp;q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Washer and dryer covered under Nexwareeny appliance warranty" loading="lazy">
+                    <div class="photo-card__label">
+                        <span class="cert-code">NX&ndash;WRT&ndash;01</span>
+                        <strong>Laundry &amp; kitchen</strong>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1592744254966-58c65cfd2e69?fm=jpg&amp;q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Digital lock representing Nexlock EMI security" loading="lazy">
+                    <div class="photo-card__label">
+                        <span class="cert-code">NX&ndash;LCK&ndash;02</span>
+                        <strong>EMI device security</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--paper-raised); padding-top: 4.5rem; padding-bottom: 4.5rem;">
+        <div class="container">
+            <div class="split-panel fade-in">
+                <div class="split-panel__media">
+                    <img src="https://images.unsplash.com/photo-1758873269276-9518d0cb4a0b?fm=jpg&amp;q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="The Nexus team collaborating in the office" loading="lazy">
+                    <span class="cert-code">NX&ndash;TEAM</span>
+                </div>
+                <div class="split-panel__copy">
+                    <p class="eyebrow">BUILT FROM INSIDE THE INDUSTRY</p>
+                    <h2 class="section-title">People who've sold the warranty, not just written it.</h2>
+                    <p>Our leadership spent the last decade inside Vecare, Onsitego and OnAssist — running claims desks, negotiating with brands, and watching where warranty programs usually let customers down. Nexus exists to fix those gaps.</p>
+                    <a href="careers.html" class="learn-more">Meet the team &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="section team-section">
+        <div class="container">
+            <div class="section-head">
+                <p class="eyebrow">02 &middot; LEADERSHIP</p>
+                <h2 class="section-title fade-in">The people behind Nexus.</h2>
+                <p class="section-sub fade-in">A team built out of the warranty and IT industry itself — not around it.</p>
+            </div>
+            <div class="team-grid">
+                <div class="badge-card fade-in">
+                    <div class="badge-strip"></div>
+                    <div class="badge-body">
+                        <div class="avatar gradient-bg-1">S</div>
+                        <h4>Sagar</h4>
+                        <p class="role">Chief Executive Officer</p>
+                        <p class="bio">Working with Vecare for the past 10 years in IT and Business Development fields.</p>
+                    </div>
+                </div>
+                <div class="badge-card fade-in delay-1">
+                    <div class="badge-strip"></div>
+                    <div class="badge-body">
+                        <div class="avatar gradient-bg-2">K</div>
+                        <h4>Kunal Kurmi</h4>
+                        <p class="role">Chief Operating Officer</p>
+                        <p class="bio">B.Tech graduate of Thakur College of Engineering and Technology. Experienced with Spectrum and Vecare Consumer Sci Pvt Ltd, driving OnAssist and VWarranty.</p>
+                    </div>
+                </div>
+                <div class="badge-card fade-in delay-2">
+                    <div class="badge-strip"></div>
+                    <div class="badge-body">
+                        <div class="avatar gradient-bg-3">K</div>
+                        <h4>Ketan</h4>
+                        <p class="role">Chief Strategy Officer</p>
+                        <p class="bio">Worked with Onsitego, bringing 8 years of deep expertise in the extended warranty field.</p>
+                    </div>
+                </div>
+                <div class="badge-card fade-in">
+                    <div class="badge-strip"></div>
+                    <div class="badge-body">
+                        <div class="avatar gradient-bg-4">A</div>
+                        <h4>Ashish</h4>
+                        <p class="role">Chief Financial Officer / Advisor</p>
+                        <p class="bio">Our dedicated financial advisor, ensuring robust economic growth and stability.</p>
+                    </div>
+                </div>
+                <div class="badge-card fade-in delay-1">
+                    <div class="badge-strip"></div>
+                    <div class="badge-body">
+                        <div class="avatar gradient-bg-5">J</div>
+                        <h4>Janak</h4>
+                        <p class="role">Investor</p>
+                        <p class="bio">Strategic investor backing our vision for the future of IT and EMI security.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="band-ink fade-in">
+                <p class="eyebrow">READY WHEN YOU ARE</p>
+                <h2>Cover your next device before it needs it.</h2>
+                <p>Nexwareeny plans are priced as a simple percentage of device value — see exactly what 1 to 4 years of protection costs.</p>
+                <a href="nexwareeny.html" class="cta-button">View pricing &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="logo-chip"><img src="logo.png" alt="NEXUS" class="logo-img"></span>
+            <ul class="footer-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="nexwareeny.html">Nexwareeny</a></li>
+                <li><a href="nexlock.html">Nexlock</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <p class="footer-bottom">&copy; 2026 NEXUS. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

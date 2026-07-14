@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact NEXUS Digital. Email us at nexuxdigital077@gmail.com or visit our office in Andheri East, Mumbai.">
+    <title>Contact Us | NEXUS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .contact-info {
+            background: var(--paper-raised);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        .contact-detail .icon {
+            font-size: 1.5rem;
+        }
+        .contact-detail a {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-detail a:hover {
+            color: var(--signal);
+        }
+        .map-container {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 100%;
+            min-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .map-container {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html"><img src="logo.png" alt="NEXUS" class="logo-img" width="150" height="58"></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="nexwarranty.html">Nex Warrenty</a></li>
+            <li><a href="nexlock.html">Security</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <header class="hero hero--compact" style="min-height: 40vh; padding-top: 120px; padding-bottom: 2rem;">
+        <div class="hero-content">
+            <p class="eyebrow">GET IN TOUCH</p>
+            <h1><span class="gradient-text">Contact</span> Us</h1>
+            <p class="lede">We're here to help with your warranty and IT solution needs.</p>
+        </div>
+    </header>
+
+    <section class="photo-band" style="background-image: url('https://images.unsplash.com/photo-1603114595741-e60bf9486e04?fm=jpg&amp;q=80&amp;w=1800&amp;auto=format&amp;fit=crop'); min-height: 34vh;">
+        <span class="photo-band__stamp">NX &middot; SUPPORT</span>
+        <div class="photo-band__content">
+            <p class="eyebrow">TALK TO A HUMAN</p>
+            <h2>Real people, close by in Andheri East.</h2>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Office Details</h3>
+                    <div class="contact-detail">
+                        <span class="icon">📍</span>
+                        <div>
+                            <strong>Headquarters</strong><br>
+                            Shop no 14, Vasydev App, Panchayat Road<br>
+                            Opp. to Sona Udyog, Andheri East<br>
+                            Mumbai 400069, Maharashtra
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <span class="icon">✉️</span>
+                        <div>
+                            <strong>Email Us</strong><br>
+                            <a href="mailto:nexuxdigital077@gmail.com">nexuxdigital077@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container fade-in delay-1">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://maps.google.com/maps?q=Shop+no+14+vasydev+app,+panchayat+road+opp+to+sona+udyog+andheri+east+mumbai+400069+maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="logo-chip"><img src="logo.png" alt="NEXUS" class="logo-img" width="100" height="40"></span>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="nexwareeny.html">Nexwareeny</a></li>
+                <li><a href="nexlock.html">Nexlock</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <p class="footer-bottom">&copy; 2026 NEXUS. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nex Warrenty - Extended Protection | Nexus</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .warranty-hero {
+            padding: 12rem 6% 6rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .warranty-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+        }
+        .warranty-hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+        .warranty-features {
+            padding: 4rem 6%;
+            position: relative;
+            z-index: 2;
+        }
+        .warranty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .warranty-card {
+            background: var(--paper-raised);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+        .warranty-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--signal);
+            font-size: 1.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .warranty-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--navy);
+        }
+        .warranty-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        .coverage-section {
+            padding: 6rem 6%;
+            background: linear-gradient(180deg, transparent, rgba(79, 70, 229, 0.03));
+            position: relative;
+            z-index: 2;
+        }
+        .coverage-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .coverage-box {
+            background: var(--paper-raised);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+        .coverage-box h3 {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .covered h3 { color: var(--navy); }
+        .not-covered h3 { color: var(--danger); }
+        
+        .coverage-list {
+            list-style: none;
+        }
+        .coverage-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+        .covered .coverage-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--signal);
+            font-weight: bold;
+        }
+        .not-covered .coverage-list li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .warranty-hero h1 { font-size: 2.5rem; }
+            .coverage-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <a href="index.html" class="logo-link">
+            <img src="logo.png" alt="Nexus Logo" class="logo-img">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span class="hamburger"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="nexwarranty.html" class="active">Nex Warrenty</a></li>
+            <li><a href="nexlock.html">Security</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="warranty-hero fade-in">
+        <div class="hero-content">
+            <div class="badge fade-in">Nex Warrenty</div>
+            <h1>Extend Your Peace of Mind</h1>
+            <p>Comprehensive device protection that mirrors your manufacturer's warranty. Experience zero hidden fees, free pick-up, and guaranteed repairs.</p>
+        </div>
+    </header>
+
+    <section class="photo-band" style="background-image: url('https://images.unsplash.com/photo-1768051579338-3dc694863efc?fm=jpg&amp;q=80&amp;w=1800&amp;auto=format&amp;fit=crop'); min-height: 36vh;">
+        <span class="photo-band__stamp">NX &middot; AUTHORIZED SERVICE</span>
+        <div class="photo-band__content">
+            <p class="eyebrow">NO THIRD-PARTY WORKSHOPS</p>
+            <h2>Certified technicians. Genuine parts. Every time.</h2>
+        </div>
+    </section>
+
+    <section class="warranty-features">
+        <div class="warranty-grid">
+            <div class="warranty-card fade-in">
+                <div class="warranty-icon">🛡️</div>
+                <h3>Comprehensive Coverage</h3>
+                <p>We extend the original manufacturer's warranty, protecting your devices against mechanical and electrical breakdowns long after the original warranty expires.</p>
+            </div>
+            
+            <div class="warranty-card fade-in">
+                <div class="warranty-icon">💳</div>
+                <h3>100% Cashless Service</h3>
+                <p>Enjoy a truly cashless experience. We cover all costs including labor charges, spare parts, taxes, and transportation. No hidden fees.</p>
+            </div>
+            
+            <div class="warranty-card fade-in">
+                <div class="warranty-icon">🚚</div>
+                <h3>Hassle-Free Logistics</h3>
+                <p>Don't waste time travelling. We provide free doorstep pick-up and drop-off, or at-home technician visits depending on your appliance or device.</p>
+            </div>
+            
+            <div class="warranty-card fade-in">
+                <div class="warranty-icon">⚙️</div>
+                <h3>Brand Authorized Repair</h3>
+                <p>Your devices are repaired exclusively at brand-authorized service centers by certified technicians using only 100% genuine spare parts.</p>
+            </div>
+            
+            <div class="warranty-card fade-in">
+                <div class="warranty-icon">🔄</div>
+                <h3>Repair or Replace</h3>
+                <p>We guarantee a fix. If your device cannot be repaired within a promised timeline or parts are unavailable, we will provide an equivalent replacement.</p>
+            </div>
+            
+            <div class="warranty-card fade-in">
+                <div class="warranty-icon">📱</div>
+                <h3>Paperless Process</h3>
+                <p>Everything is entirely digital. Simply provide your purchase invoice containing the IMEI/Serial Number to initiate a smooth claim process.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="position: relative; z-index: 2; padding-top: 1rem; padding-bottom: 3rem;">
+        <div class="container">
+            <div class="split-panel fade-in">
+                <div class="split-panel__media">
+                    <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?fm=jpg&amp;q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Refrigerator covered under Nex Warrenty" loading="lazy">
+                    <span class="cert-code">NX&ndash;WRT&ndash;01</span>
+                </div>
+                <div class="split-panel__copy">
+                    <p class="eyebrow">ZERO DEPRECIATION</p>
+                    <h2>Full claim value, no deductions for age.</h2>
+                    <p>A five-year-old appliance is covered the same as a five-month-old one. We don't discount claims for wear that doesn't affect how the device runs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="coverage-section">
+        <div class="coverage-wrapper">
+            <div class="coverage-box covered fade-in">
+                <h3>What is Covered</h3>
+                <ul class="coverage-list">
+                    <li>All functional and mechanical breakdowns</li>
+                    <li>Electrical malfunctions and wiring defects</li>
+                    <li>Internal hardware failures</li>
+                    <li>Repairs mirroring the original manufacturer warranty</li>
+                    <li>Parts, labor, and transportation fees</li>
+                </ul>
+            </div>
+            
+            <div class="coverage-box not-covered fade-in">
+                <h3>What is Not Covered</h3>
+                <ul class="coverage-list">
+                    <li>Physical damage (e.g., broken screens, dents)</li>
+                    <li>Liquid damage or water submersion</li>
+                    <li>Loss, theft, or intentional damage</li>
+                    <li>Accessories and consumables (batteries, cables)</li>
+                    <li>Pre-existing damages before warranty activation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
